@@ -1,0 +1,15 @@
+{% load crispy_forms_tags %}
+<body>
+    <h1>Welcome to our String Manipulation site.</h1>
+    <p>You can perform the following:</p>
+    <ul>
+        <li>String Truncation</li>
+        <li>Regular Expression Testing</li>
+    </ul>
+    <p>Please register to get started</p>
+    <form method="post">
+        {%csrf_token%}
+        {{form|crispy}}
+        <br><button type="submit">Register</button>
+    </form>
+</body>

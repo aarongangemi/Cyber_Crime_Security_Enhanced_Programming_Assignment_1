@@ -1,18 +1,36 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.utils.text import Truncator
 from django.views import View
-from .forms import MyForm
-
-
+from .forms import RegisterForm, RegexForm
+import re
+import time
+import threading
+from django.http import Http404
 # Create your views here.
-class RedosPage(View):
+class Register(View):
     def get(self, request, *args, **kwargs):
-        form = MyForm()
-        return render(request, "index.html", {'form': form})
+        form = RegisterForm()
+        return render(request, "register.html", {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        startTime = time.time()
+        if request.method == 'POST':
+            form = RegisterForm(request.POST)
+            if form.is_valid():
+                request.session["username"] = form.cleaned_data["username"]
+                return redirect('regextest')
+class RegexTest(View):
+
+    def get(self, request, *args,**kwargs):
+        form = RegexForm()
+        return render(request,"regexchecker.html",{"form":form, "username": request.session["username"]})
 
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
-            form = MyForm(request.POST)
-            if (form.is_valid()):
-                print("Input String was: " + form.cleaned_data["inputString"])
-                print("Regex String was: " + form.cleaned_data["regexString"])
-        return render(request, "index.html", {'form': form})
+            form = RegexForm(request.POST)
+            if form.is_valid():
+                return render(request,"regexchecker.html",{"form": form, "username": request.session["username"]})
+        else:
+            return redirect("regextest")
+
+

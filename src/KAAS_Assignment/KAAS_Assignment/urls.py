@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from ReDoS.views import RedosPage
+from ReDoS.views import Register, RegexTest
 
 urlpatterns = [
     path('admin/', admin.site.urls), 
-    path('',RedosPage.as_view(), name="redos"),
+    path('',Register.as_view(), name="register"),
+    path('regextest', RegexTest.as_view(),name="regextest")
 ]

@@ -1,0 +1,13 @@
+{% load crispy_forms_tags %}
+<body>
+    <p>Hello,{{username}}<br>To perform regular expression checking, enter the following</p>
+    <ul>
+        <li>1. Enter the regex you wish to check your string against</li>
+        <li>2. Enter a string</li>
+    </ul>
+    <form method="post">
+        {%csrf_token%}
+        {{form|crispy}}
+        <br><button type="submit">Test Regex</button>
+    </form>
+</body>
