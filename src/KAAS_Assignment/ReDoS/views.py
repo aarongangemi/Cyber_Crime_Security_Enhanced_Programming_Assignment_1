@@ -6,6 +6,8 @@ import re
 import time
 import threading
 from django.http import Http404
+
+
 # Create your views here.
 class Register(View):
     def get(self, request, *args, **kwargs):
@@ -17,20 +19,26 @@ class Register(View):
         if request.method == 'POST':
             form = RegisterForm(request.POST)
             if form.is_valid():
+                str = "@"*1000000
                 request.session["username"] = form.cleaned_data["username"]
-                return redirect('regextest')
+                result = re.search("^\S+@\S+\.\S+$", form.cleaned_data["email"])
+                if result is None:
+                    return render(request, "register.html", {"form": RegisterForm(),
+                                                             "message":"Invalid Email entered, please try again"})
+                else:
+                    return redirect('regextest')
+
+
 class RegexTest(View):
 
-    def get(self, request, *args,**kwargs):
+    def get(self, request, *args, **kwargs):
         form = RegexForm()
-        return render(request,"regexchecker.html",{"form":form, "username": request.session["username"]})
+        return render(request, "regexchecker.html", {"form": form, "username": request.session["username"]})
 
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             form = RegexForm(request.POST)
             if form.is_valid():
-                return render(request,"regexchecker.html",{"form": form, "username": request.session["username"]})
+                return render(request, "regexchecker.html", {"form": form, "username": request.session["username"]})
         else:
             return redirect("regextest")
-
-
