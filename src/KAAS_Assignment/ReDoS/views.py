@@ -39,6 +39,10 @@ class RegexTest(View):
         if request.method == 'POST':
             form = RegexForm(request.POST)
             if form.is_valid():
-                return render(request, "regexchecker.html", {"form": form, "username": request.session["username"]})
+                result =  re.search(form.cleaned_data["regexString"], form.cleaned_data["inputString"])
+                if result:
+                    return render(request,"regexchecker.html",{"form": form, "username": request.session["username"], "result": "Result: String found in regex"})
+                else:
+                    return render(request,"regexchecker.html",{"form": form, "username": request.session["username"], "result": "Result: No result"})
         else:
             return redirect("regextest")
