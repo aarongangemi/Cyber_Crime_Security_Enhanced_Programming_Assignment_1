@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+{% load crispy_forms_tags %}
 <body>
-    <h1>{{form}}</h1>
+    <h1>Welcome to our ReDos site.</h1>
+    <form method="post">
+        {%csrf_token%}
+        {{form|crispy}}
+        <br><button type="submit">Submit Input</button>
+    </form>
 </body>
-</html>
