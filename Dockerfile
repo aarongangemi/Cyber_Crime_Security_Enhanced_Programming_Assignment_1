@@ -14,5 +14,6 @@ RUN pip install --no-cache-dir --user -r requirements.txt
 COPY src .
 
 EXPOSE 8080
+CMD [ "python", "KAAS_Assignment/manage.py", "makemigrations"]
 CMD [ "python", "KAAS_Assignment/manage.py", "migrate"]
 CMD [ "python", "KAAS_Assignment/manage.py", "runserver", "0.0.0.0:8000"]
