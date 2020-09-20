@@ -1,6 +1,5 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
 selenium  =  webdriver.Firefox()
 
 selenium.get('http://localhost:8000/')

@@ -19,7 +19,6 @@ class Register(View):
         if request.method == 'POST':
             form = RegisterForm(request.POST)
             if form.is_valid():
-                str = "@" * 1000000
                 request.session["username"] = form.cleaned_data["username"]
                 usernameResult = re.search("^([a-zA-Z]+)*$", form.cleaned_data["username"])
                 emailResult = re.search("^\S+@\S+\.\S+$", form.cleaned_data["email"])
