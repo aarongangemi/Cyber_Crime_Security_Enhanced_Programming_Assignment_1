@@ -21,7 +21,7 @@ class Register(View):
             if form.is_valid():
                 str = "@" * 1000000
                 request.session["username"] = form.cleaned_data["username"]
-                usernameResult = re.search("([a-zA-Z+])*", form.cleaned_data["username"])
+                usernameResult = re.search("^([a-zA-Z]+)*$", form.cleaned_data["username"])
                 emailResult = re.search("^\S+@\S+\.\S+$", form.cleaned_data["email"])
                 if emailResult is None or usernameResult is None:
                     return render(request, "register.html", {"form": RegisterForm(),
