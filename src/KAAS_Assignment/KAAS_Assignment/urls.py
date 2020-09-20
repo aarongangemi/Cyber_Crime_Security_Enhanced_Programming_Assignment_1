@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from ReDoS.views import Register, RegexTest
+from ReDoS.views import Register, RegexTest, SpaceTrim
 
 urlpatterns = [
     path('admin/', admin.site.urls), 
     path('',Register.as_view(), name="register"),
-    path('regextest', RegexTest.as_view(),name="regextest")
+    path('regextest', RegexTest.as_view(),name="regextest"),
+    path('inputTrim', SpaceTrim.as_view(), name="spacetrimmer"),
 ]

@@ -1,0 +1,17 @@
+{% load crispy_forms_tags %}
+<body>
+    <p>Hello,{{username}}<br>To perform string trimming enter the following</p>
+    <ul>
+        <li>1. Enter the string you wish to trim</li>
+        <li>2. Trim!!!</li>
+    </ul>
+    <form method="post">
+        {%csrf_token%}
+        {{form|crispy}}
+        <br><button type="submit">Trim Spaces</button>
+        <br><a href="regextest">Go to Regex Checker</a>
+    </form>
+    <label>
+        {{result}}
+    </label>
+</body>
