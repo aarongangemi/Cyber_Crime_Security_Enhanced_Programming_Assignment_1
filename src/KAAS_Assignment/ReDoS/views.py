@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.utils.text import Truncator
 from django.views import View
 from .forms import RegisterForm, RegexForm
-import re
+import rure as re
 import time
 from .exceptionTypes import emailLengthException, emailInvalidException
 from django.http import Http404

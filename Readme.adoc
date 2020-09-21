@@ -1,6 +1,20 @@
 KAAS - REDOS EXAMPLE README
 
+Program Description:
+Using django a python web framework we created a basic web application to show the regular expression denial of service
+(redos) vulnerability. This program was created with the intent of showing users how a redos can affect a website,
+how it can be detected and how it can be patched.
+
+The website itself is a basic String manipulation website. Once the website is opened in a browser the user can
+enter a username and an email into two textfields to registers themselves. Once these details are correctly submitted
+the website will open a webpage allowing them to test regular expressions. The user can enter a regular expression
+and a string that will be checked to see if it matches.
+
 How to run the program:
+- cd to the CCSEP_Assignment directory
+- make build (build program)
+- make run (run website)
+- in browser enter url "http://localhost:8000/" to open the website
 
 how to detect:
 
