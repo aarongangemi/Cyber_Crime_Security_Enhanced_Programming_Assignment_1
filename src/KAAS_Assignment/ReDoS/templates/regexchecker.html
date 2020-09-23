@@ -8,10 +8,10 @@
     <form method="post">
         {%csrf_token%}
         {{form|crispy}}
-        <br><button type="submit" id="testRegexBtn">Test Regex</button>
-        <br><button type="submit" id="goToSpaceBtn"><a href="inputTrim">Go to Space Trimmer</a></button>
+        <br><button type="submit" id="testRegexBtn">Test Regex</button><br/>
     </form>
-    <label>
+    <br><button type="submit" id="goToSpaceBtn" onclick="location.href='inputTrim'">Go to Space Trimmer</button>
+    <label id="regexResult">
         {{result}}
     </label>
 </body>

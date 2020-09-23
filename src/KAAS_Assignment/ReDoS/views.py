@@ -37,15 +37,18 @@ class RegexTest(View):
 
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
-            form = RegexForm(request.POST)
-            if form.is_valid():
-                result = re.search(form.cleaned_data["regexString"], form.cleaned_data["inputString"])
-                if result:
-                    return render(request, "regexchecker.html", {"form": form, "username": request.session["username"],
-                                                                 "result": "Result: String found in regex"})
-                else:
-                    return render(request, "regexchecker.html", {"form": form, "username": request.session["username"],
-                                                                 "result": "Result: No result"})
+            try:
+                form = RegexForm(request.POST)
+                if form.is_valid():
+                    result = re.search(form.cleaned_data["regexString"], form.cleaned_data["inputString"])
+                    if result:
+                        return render(request, "regexchecker.html", {"form": form, "username": request.session["username"],
+                                                                    "result": "Result: String found in regex"})
+                    else:
+                        return render(request, "regexchecker.html", {"form": form, "username": request.session["username"],
+                                                                    "result": "Result: No result"})
+            except:
+                return render(request, "regexchecker.html", {"form": form, "username": request.session["username"], "result": "Error: invalid regex"})
         else:
             return redirect("regextest")
 
@@ -64,3 +67,5 @@ class SpaceTrim(View):
                     return render(request, "spacetrimmer.html", {"form": form, "username": request.session["username"], "result": "Trimmed String: " + inputTrim.string.strip()})
                 else:
                     return render(request, "spacetrimmer.html",{"form": form, "username": request.session["username"], "result": "Result: No result"})
+        else:
+            return redirect("inputTrim")
