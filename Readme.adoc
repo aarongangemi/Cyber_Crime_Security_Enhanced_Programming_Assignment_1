@@ -16,8 +16,23 @@ How to run the program:
 - make run (run website)
 - in browser enter url "http://localhost:8000/" to open the website
 
-how to detect:
+How to detect:
+ - Simply enter any string that may or may not cause the redos to occur.
+ - If the website takes a significant amount of time to process the string, then a redos has occured.
+ - You will know when this happens because you will not be able to perform any action in the website while the redos is happening.
 
-how to exploit:
+How to exploit:
+ - Need to exploit a vulnerable/evil regex by inputting specific large string that can trigger the redos
+   - e.g. Use "\s+$" as the regex (without the quotation marks). This regex will match for any whitespaces at the end of an input string.
+          However when you input any character at the end of the string other than whitespaces, the regex engine backtracks and tries to
+          match again. When inputting very large number of whitespace in the middle of the string can cause catastrophic backtracking and
+          can cause the regex engine to consume all the system resource triggering a redos.
+ - Since the website allows the user to select any regex and string combination for testing, the user can simply look up any cases of
+   vulnerable/evil regex and string combo and try it out.
 
-how to patch:
+How to patch:
+ - Limit the input size of the string so no unnecessarily large string can overload the regex engine. Having a very large input string is often
+   required to trigger the redos so this can significantly lower the chance of redos triggering.
+   - e.g. Set [max_length = 100] in the input field.
+ - Update the regex engine so it can process strings faster.
+   - ()
