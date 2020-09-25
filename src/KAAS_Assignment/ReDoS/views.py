@@ -24,7 +24,8 @@ class Register(View):
                 emailResult = re.search("^\S+@\S+\.\S+$", form.cleaned_data["email"])
                 if emailResult is None or usernameResult is None:
                     return render(request, "register.html", {"form": RegisterForm(),
-                                                             "message": "Invalid Email entered, please try again"})
+                                                             "message": "Invalid username or email was entered, " +
+                                                                        "please try again with no spaces"})
                 else:
                     return redirect('regextest')
 
