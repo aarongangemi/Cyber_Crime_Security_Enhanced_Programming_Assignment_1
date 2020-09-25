@@ -66,6 +66,6 @@ class SpaceTrim(View):
                 if inputTrim:
                     return render(request, "spacetrimmer.html", {"form": form, "username": request.session["username"], "result": "Trimmed String: " + inputTrim.string.strip()})
                 else:
-                    return render(request, "spacetrimmer.html",{"form": form, "username": request.session["username"], "result": "Result: No result"})
+                    return render(request, "spacetrimmer.html",{"form": form, "username": request.session["username"], "result": "Result: Nothing needed trimming"})
         else:
             return redirect("inputTrim")
