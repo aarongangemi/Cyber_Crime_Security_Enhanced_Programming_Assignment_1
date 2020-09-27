@@ -8,7 +8,9 @@ how it can be detected and how it can be patched.
 The website itself is a basic String manipulation website. Once the website is opened in a browser the user can
 enter a username and an email into two textfields to registers themselves. Once these details are correctly submitted
 the website will open a webpage allowing them to test regular expressions. The user can enter a regular expression
-and a string that will be checked to see if it matches.
+and a string that will be checked to see if it matches. From the regular expression test page the user can also select
+a button "go to space trimmer" where a user can enter a String into a text field and then as input string will be trimmed
+of any cases where there are trailing spaces.
 
 How to run the program:
 
