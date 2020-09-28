@@ -1,3 +1,8 @@
+## Purpose: The views control what the user will see including error messages.
+## Also completes any regex processing
+## Patch: Added exceptions that occurs when input string sizes are over threshold
+## There is already input size limitation set, but these exception could add defense-in-depth incase one fails
+## Contributors: Aaron Gangemi, Kay Men Yap, Sho Kogota, Alex McLeod
 from django.shortcuts import render, redirect
 from django.utils.text import Truncator
 from django.views import View

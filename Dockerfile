@@ -1,5 +1,6 @@
-# A sample run a Flask program
-# Guide: https://blog.bitsrc.io/a-guide-to-docker-multi-stage-builds-206e8f31aeb8
+# Created by Kay Men Yap 19257442
+# Last updated: 28/09/2020
+# Purpose: To build the docker image for the program to run on
 FROM python:3
 LABEL Kay "19257442@student.curtin.edu.au"
 ENV PYTHONUNBUFFERED 1

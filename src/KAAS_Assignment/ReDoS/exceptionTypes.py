@@ -1,3 +1,5 @@
+## Purpose: Specify exception types for different errors that could occur
+## Contributors: Sho Kogota, Alex McLeod
 class Error(Exception):
     pass
 
