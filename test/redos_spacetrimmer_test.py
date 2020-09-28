@@ -39,14 +39,14 @@ trimBtn.send_keys(Keys.RETURN)
 
 try:
     timeout = 10
-    text_present = EC.text_to_be_present_in_element((By.ID, 'spaceResult'), "Result: Nothing needed trimming")
+    text_present = EC.text_to_be_present_in_element((By.ID, 'spaceResult'), "asd")
     WebDriverWait(selenium, timeout).until(text_present)
 except TimeoutException:
     print("ReDoS occurred in space trimmer")
 
 try:
     spaceResult = selenium.find_element_by_id('spaceResult')
-    assert "Result: Nothing needed trimming" in spaceResult.text
+    assert "asd" in spaceResult.text
     print("No ReDos Occurred")
 except AssertionError:
     print("ReDos was caused at space trimmer")

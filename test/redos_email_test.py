@@ -16,12 +16,13 @@ submit.send_keys(Keys.RETURN)
 
 try:
     timeout = 10
-    element_present = EC.presence_of_element_located((By.ID, "regexTitle"))
-    WebDriverWait(selenium, timeout).until(element_present)
+    text_present = EC.text_to_be_present_in_element((By.ID, 'message'),
+                                                    "Error: Invalid Email")
+    WebDriverWait(selenium, timeout).until(text_present)
 except TimeoutException:
     print("ReDos was caused")
 
 try:
-    assert "/regextest" in selenium.current_url
+    assert "localhost:8000" in selenium.current_url
 except AssertionError:
     print("ReDos was caused at register and did not allow the webpage url to change")

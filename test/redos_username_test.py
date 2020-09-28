@@ -17,7 +17,7 @@ submit.send_keys(Keys.RETURN)
 try:
     timeout = 10
     text_present = EC.text_to_be_present_in_element((By.ID, 'message'),
-                                                    "Error: invalid username, please try again. Note: The username can only be characters from a to z uppercase or lowercase with no spaces")
+                                                    "Error: invalid username")
     WebDriverWait(selenium, timeout).until(element_present)
 except TimeoutException:
     print("ReDos was caused")
