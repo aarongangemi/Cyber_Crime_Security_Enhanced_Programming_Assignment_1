@@ -86,16 +86,15 @@ class RegexTest(View):
         if request.method == 'POST':
             try:
                 form = RegexForm(request.POST)
-                userRegex = form.cleaned_data["regexString"]
-                inputString = form.cleaned_data["inputString"]
-                if len(userRegex) > 200:
-                    raise regexInputLengthException("Error: input regex must be less than or equal to 200")
-
-                if len(inputString) > 300:
-                    raise inputStringLengthException("Error: input string must be less than or equal to 300")
-
-
                 if form.is_valid():
+                    userRegex = form.cleaned_data["regexString"]
+                    inputString = form.cleaned_data["inputString"]
+                    if len(userRegex) > 200:
+                        raise regexInputLengthException("Error: input regex must be less than or equal to 200")
+
+                    if len(inputString) > 300:
+                        raise inputStringLengthException("Error: input string must be less than or equal to 300")
+
                     result = rure.search(userRegex, inputString)
                     if result:
                         return render(request, "regexchecker.html", {"form": form, "username": request.session["username"],
