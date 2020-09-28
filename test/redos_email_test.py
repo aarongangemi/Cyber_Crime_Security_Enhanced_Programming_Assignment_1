@@ -31,7 +31,8 @@ except TimeoutException:
     ## if timeout reached, error caused
 try:
     ## ReDos not caused if URL does not change for error
-    assert "localhost:8000" in selenium.current_url
+    message = selenium.find_element_by_id("message")
+    assert "Invalid Email" in message.text
     print("No ReDoS occurred")
 except AssertionError:
     ## ReDos caused if assertion error reached

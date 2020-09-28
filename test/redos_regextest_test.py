@@ -26,6 +26,7 @@ try:
     ## Check regex string is valid. If element is valid then ReDos was not caused
 except TimeoutException:
     print("Timed out waiting for page to load")
+
 # Testing matching regex and input string
 ## Below code tests ReDos occurs with evil regex
 regexString = selenium.find_element_by_id('id_regexString')
@@ -50,7 +51,7 @@ except TimeoutException:
 ##Test Regex will be caused
 try:
     regexResult = selenium.find_element_by_id('regexResult')
-    assert "Result: String found in regex" in regexResult.text
+    assert "No result" in regexResult.text
     print("ReDos was not caused")
     ## if assert works then redos not caused
 except AssertionError:

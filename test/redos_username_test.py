@@ -27,7 +27,8 @@ except TimeoutException:
 
 try:
     ## check url has not changed to confirm redos.
-    assert "localhost:8000" in selenium.current_url
+    message = selenium.find_element_by_id("message")
+    assert "invalid username" in message.text
     print("No ReDos occurred")
 except AssertionError:
     print("ReDos was caused at register and did not allow the webpage url to change")
