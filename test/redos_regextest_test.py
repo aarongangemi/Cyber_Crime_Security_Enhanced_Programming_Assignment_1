@@ -10,7 +10,7 @@ selenium.get('http://localhost:8000/')
 username = selenium.find_element_by_id('id_username')
 email = selenium.find_element_by_id('id_email')
 submit = selenium.find_element_by_id('register')
-username.send_keys("ReDoS Tester")
+username.send_keys("ReDoSTester")
 email.send_keys("a@a.com")
 submit.send_keys(Keys.RETURN)
 timeout = 5
