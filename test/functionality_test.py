@@ -1,3 +1,7 @@
+# Created by Kay Men Yap 19257442
+# Last updated: 28/09/2020
+# Purpose: Test all of the functionality of the program
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException

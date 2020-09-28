@@ -1,5 +1,6 @@
-# A sample Makefile to use make command to build, test and run the program
-# Guide: https://philpep.org/blog/a-makefile-for-your-dockerfiles/
+# Created by Kay Men Yap 19257442
+# Last updated: 28/09/2020
+# Purpose: To simplify the process of building the docker iamge and running the docker image
 APP=isec3004.kaas.assignment
 
 all: build
