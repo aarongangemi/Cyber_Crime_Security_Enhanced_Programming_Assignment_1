@@ -1,4 +1,6 @@
-KAAS - REDOS EXAMPLE README
+= ISEC3004 assignment
+
+== KAAS - REDOS EXAMPLE README
 
 Program Description:
 Using django a python web framework we created a basic web application to show the regular expression denial of service
@@ -12,20 +14,20 @@ and a string that will be checked to see if it matches. From the regular express
 a button "go to space trimmer" where a user can enter a String into a text field and then as input string will be trimmed
 of any cases where there are trailing spaces.
 
-How to run the program:
+== How to run the program:
 
 - cd to the CCSEP_Assignment directory
 - make build (build program)
 - make run (run website)
 - in browser enter url "http://localhost:8000/" to open the website
 
-How to detect:
+== How to detect:
 
  - Simply enter any string that may or may not cause the redos to occur.
  - If the website takes a significant amount of time to process the string, then a redos has occured.
  - You will know when this happens because you will not be able to perform any action in the website while the redos is happening.
 
-How to exploit:
+== How to exploit:
 
  - Need to exploit a vulnerable/evil regex by inputting specific large string that can trigger the redos
 		- e.g. Use "\s+$" as the regex (without the quotation marks). This regex will match for any whitespaces at the end of an input string.
@@ -35,7 +37,7 @@ How to exploit:
  - Since the website allows the user to select any regex and string combination for testing, the user can simply look up any cases of
    vulnerable/evil regex and string combo and try it out.
 
-How to patch:
+== How to patch:
 
  - Limit the input size of the string so no unnecessarily large string can overload the regex engine. Having a very large input string is often
    required to trigger the redos so this can significantly lower the chance of redos triggering.
@@ -46,3 +48,7 @@ How to patch:
      a regex as the engine no longer backtracks to try and find a match. This hence stops any exponential search times from occurring.
      This does cause some regex features to be lost such as backreferences and arbitrary lookaround but this is the only
      way to ensure that when a user enters their own regex and input to match that a redos does not occur.
+
+== License
+
+See link:LICENSE[]
