@@ -21,12 +21,13 @@ try:
     ## if text not shown in 10 seconds then redos will occur
     text_present = EC.text_to_be_present_in_element((By.ID, 'message'),
                                                     "Error: invalid username")
-    WebDriverWait(selenium, timeout).until(element_present)
+    WebDriverWait(selenium, timeout).until(text_present)
 except TimeoutException:
     print("ReDos was caused")
 
 try:
     ## check url has not changed to confirm redos.
     assert "localhost:8000" in selenium.current_url
+    print("No ReDos occurred")
 except AssertionError:
     print("ReDos was caused at register and did not allow the webpage url to change")
