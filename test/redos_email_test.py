@@ -32,6 +32,7 @@ except TimeoutException:
 try:
     ## ReDos not caused if URL does not change for error
     assert "localhost:8000" in selenium.current_url
+    print("No ReDoS occurred")
 except AssertionError:
     ## ReDos caused if assertion error reached
     print("ReDos was caused at register and did not allow the webpage url to change")

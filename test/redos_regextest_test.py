@@ -40,9 +40,9 @@ submit.send_keys(Keys.RETURN)
 try:
     timeout = 10
     ## timeout of 10 seconds
-    text_present = EC.text_to_be_present_in_element((By.ID, 'regexResult'), "Result: String found in regex")
+    text_present = EC.text_to_be_present_in_element((By.ID, 'regexResult'), "No result")
     WebDriverWait(selenium, timeout).until(text_present)
-    ## if result is found then regex is valid and reDos not occure
+    ## if result is found then regex is valid and reDos not occured
 except TimeoutException:
     print("ReDos was caused")
     ##redos should be caused
