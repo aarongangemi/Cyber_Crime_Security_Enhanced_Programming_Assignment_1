@@ -1,3 +1,7 @@
+# Created by Kay Men Yap 19257442
+# Last updated: 28/09/2020
+# Purpose: Test all of the functionality of the program
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
@@ -9,18 +13,58 @@ selenium  =  webdriver.Firefox()
 
 selenium.get('http://localhost:8000/')
 
+# Testing invalid username
+username = selenium.find_element_by_id('id_username')
+email = selenium.find_element_by_id('id_email')
+submit = selenium.find_element_by_id('register')
+
+username.send_keys("aa!")
+email.send_keys("a@a.com")
+
+submit.send_keys(Keys.RETURN)
+
+timeout = 5
+try:
+    text_present = EC.text_to_be_present_in_element((By.ID, 'message'), "Error: invalid username")
+    WebDriverWait(selenium, timeout).until(text_present)
+except TimeoutException:
+    print("Timed out waiting for page to load")
+
+assert "http://localhost:8000" in selenium.current_url
+
+# Testing invalid email
+username = selenium.find_element_by_id('id_username')
+email = selenium.find_element_by_id('id_email')
+submit = selenium.find_element_by_id('register')
+
+username.clear()
+username.send_keys("aa")
+email.clear()
+email.send_keys("a@.com")
+
+submit.send_keys(Keys.RETURN)
+
+try:
+    text_present = EC.text_to_be_present_in_element((By.ID, 'message'), "Error: Invalid Email")
+    WebDriverWait(selenium, timeout).until(text_present)
+except TimeoutException:
+    print("Timed out waiting for page to load")
+
+assert "http://localhost:8000" in selenium.current_url
+
 # Testing valid register
 
 username = selenium.find_element_by_id('id_username')
 email = selenium.find_element_by_id('id_email')
 submit = selenium.find_element_by_id('register')
 
+username.clear()
 username.send_keys("aa")
+email.clear()
 email.send_keys("a@a.com")
 
 submit.send_keys(Keys.RETURN)
 
-timeout = 5
 try:
     element_present = EC.presence_of_element_located((By.ID, 'id_regexString'))
     WebDriverWait(selenium, timeout).until(element_present)

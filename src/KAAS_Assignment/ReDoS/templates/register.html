@@ -1,4 +1,6 @@
 {% load crispy_forms_tags %}
+<!--Purpose: The HTML page for register
+    Contributors: Aaron Gangemi, Kay Men Yap --!>
 <body>
     <h1>Welcome to our String Manipulation site.</h1>
     <p>You can perform the following:</p>
@@ -12,5 +14,5 @@
         {{form|crispy}}
         <br><button id="register" type="submit">Register</button>
     </form>
-    {{message}}
+    <p id="message">{{message}}</p>
 </body>
