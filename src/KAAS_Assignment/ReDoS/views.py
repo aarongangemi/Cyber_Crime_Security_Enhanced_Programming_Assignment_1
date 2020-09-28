@@ -15,17 +15,18 @@ class Register(View):
         return render(request, "register.html", {'form': form})
 
     def post(self, request, *args, **kwargs):
-        startTime = time.time()
         if request.method == 'POST':
             form = RegisterForm(request.POST)
             if form.is_valid():
                 request.session["username"] = form.cleaned_data["username"]
                 usernameResult = re.search("^([a-zA-Z]+)*$", form.cleaned_data["username"])
                 emailResult = re.search("^\S+@\S+\.\S+$", form.cleaned_data["email"])
-                if emailResult is None or usernameResult is None:
+                if usernameResult is None:
                     return render(request, "register.html", {"form": RegisterForm(),
-                                                             "message": "Invalid username or email was entered, " +
-                                                                        "please try again with no spaces"})
+                                                             "message": "Error: invalid username, please try again. Note: The username can only be characters from a to z uppercase or lowercase with no spaces"})
+                if emailResult is None:
+                    return render(request, "register.html", {"form": RegisterForm(),
+                                                             "message": "Error: Invalid Email entered, please try again. Note: An email address must end with @<DomainName>.com"})
                 else:
                     return redirect('regextest')
 

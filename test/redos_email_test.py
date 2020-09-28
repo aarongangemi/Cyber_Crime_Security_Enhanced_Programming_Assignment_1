@@ -25,4 +25,3 @@ try:
     assert "/regextest" in selenium.current_url
 except AssertionError:
     print("ReDos was caused at register and did not allow the webpage url to change")
-#selenium.quit()

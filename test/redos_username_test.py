@@ -16,13 +16,14 @@ submit.send_keys(Keys.RETURN)
 
 try:
     timeout = 10
-    element_present = EC.presence_of_element_located((By.ID, "regexTitle"))
+    text_present = EC.text_to_be_present_in_element((By.ID, 'message'),
+                                                    "Error: invalid username, please try again. Note: The username can only be characters from a to z uppercase or lowercase with no spaces")
     WebDriverWait(selenium, timeout).until(element_present)
 except TimeoutException:
     print("ReDos was caused")
 
 try:
-    assert "/regextest" in selenium.current_url
+    assert "localhost:8000" in selenium.current_url
 except AssertionError:
     print("ReDos was caused at register and did not allow the webpage url to change")
 #selenium.quit()
