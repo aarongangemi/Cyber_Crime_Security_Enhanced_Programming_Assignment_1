@@ -115,6 +115,26 @@ except TimeoutException:
 regexResult = selenium.find_element_by_id('regexResult')
 assert "Result: No result" in regexResult.text
 
+# Testing invalid regex entered
+regexString = selenium.find_element_by_id('id_regexString')
+inputString = selenium.find_element_by_id('id_inputString')
+testRegex = selenium.find_element_by_id('testRegexBtn')
+
+regexString.clear()
+inputString.clear()
+regexString.send_keys("(")
+inputString.send_keys("a")
+
+testRegex.send_keys(Keys.RETURN)
+
+try:
+    text_present = EC.text_to_be_present_in_element((By.ID, 'regexResult'), "Error: invalid regex")
+    WebDriverWait(selenium, timeout).until(text_present)
+except TimeoutException:
+    print("Timed out waiting for page to load")
+
+regexResult = selenium.find_element_by_id('regexResult')
+assert "Error: invalid regex" in regexResult.text
 
 goToSpace = selenium.find_element_by_id('goToSpaceBtn')
 goToSpace.send_keys(Keys.RETURN)

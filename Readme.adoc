@@ -1,3 +1,5 @@
+Contributors: Alex McLeod, Sho Kogota
+
 = ISEC3004 assignment
 
 == KAAS - REDOS EXAMPLE README
@@ -38,16 +40,24 @@ of any cases where there are trailing spaces.
    vulnerable/evil regex and string combo and try it out.
 
 == How to patch:
-
+ - Where possible replace the regex's used in views.py that cause catastrophic backtracking with ones that do not:
+   - for username matching regex:  "^([a-zA-Z]+)*$" to "^[a-zA-Z]+$"
+   - for email matching regex: "^\S+@\S+\.\S+$" to "^[^@]+@([^\.@]+\.[^\.@]+)+$"
  - Limit the input size of the string so no unnecessarily large string can overload the regex engine. Having a very large input string is often
    required to trigger the redos so this can significantly lower the chance of redos triggering.
-   - e.g. Set [max_length = 100] in the input field.
+   - e.g. Set an appropriate max length for each input field for the forms within forms.py (e.g. max_length = 100 for a username).
+   - following the defence in depth principle take the text that has been input into each field and check that its
+     length corresponds with the same requirements as set in forms.py. Otherwise throw an error message. This is in
+     the case that someone is able to by pass forms.py's maxsize and acts as another layer of defence.
  - Update the regex engine so it can process strings faster.
    - This involved changing the regex engine that was used to match strings. Instead of using the inbuilt python re
      engine, we installed the rure regex engine. This engine always takes a linear amount of time to match an input to
      a regex as the engine no longer backtracks to try and find a match. This hence stops any exponential search times from occurring.
      This does cause some regex features to be lost such as backreferences and arbitrary lookaround but this is the only
-     way to ensure that when a user enters their own regex and input to match that a redos does not occur.
+     way to ensure that when a user enters their own regex and input to match that a redos does not occur. This does not
+     affect the functionality of any of the regex matching that occurs.
+   - rure used for every regex creation speeding up the matching time, even if an evil regex is used and the input
+     to the regex is large.
 
 == License
 
