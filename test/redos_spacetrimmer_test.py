@@ -34,10 +34,7 @@ except TimeoutException:
 # Testing matching regex and input string
 spaceInput = selenium.find_element_by_id('id_spaceInput')
 trimBtn = selenium.find_element_by_id('trimBtn')
-spaceInput.send_keys("asd")
-spaceInput.send_keys(" " * 100000)
-## take time to buffer
-spaceInput.send_keys("asd")
+selenium.execute_script('document.getElementById("id_spaceInput").value="asd"+" ".repeat(10000)+"asd"')
 trimBtn.send_keys(Keys.RETURN)
 
 try:
