@@ -1,0 +1,132 @@
+Contributors: Alex McLeod, Sho Kogota
+
+= ISEC3004 assignment TEST FOLDER README
+Contains:
+test case python scripts:
+- functionality_test (Tests the basics functionality of all the different use cases)
+- redos_email_test.py (To check if redos can occur when email is entered on the registration screen)
+- redos_regextest_test.py (To check if redos can occur when regex test inputs are entered on regex test screen)
+- redos_spacetrimmer_test.py  (To check if redos can occur when space trimmer input is entered)
+- redos_username_test.py (To check functionality of username registration and whether redos will occur)
+
+Note: in Master branch tests for redos should not pass the tests and in the patchBranch they should pass and no redos
+should occur
+
+Other files:
+- setup_geckodriver.sh (runs the set that install the geckodriver requirements)
+- setup_python.sh (sets up the other requirements for the environment needed for testing)
+- test_requirements.txt (file used by setup_python.sh containing the packages required)
+
+
+== How to Setup Test Environment
+
+- cd into test directory
+- ./setup_python.sh (set up requirements and environment for testing)
+- ./setup_geckodriver.sh (set up geckodriver requirements)
+- source ccsep-env/bin/activate (run from test directory to activate the environment)
+- deactivate (to deactivate test environment when finished)
+
+== How to Run Tests
+
+- ensure testing environment is activated (source ccsep-env/bin/activate)
+- make sure website is built and running:
+    - from another terminal make sure you are in the CCSEP_Assignment directory, the root directory of the project
+    - enter "make build" to build the project
+    - enter "make run" to start the web server
+- cd into test folder
+- python3 <name of python test file>.py (runs particular test)
+- use command "deactivate" to deactivate the virtual environment
+
+== Tests
+
+functionality_test.py:
+- Test the basic functionality of the website
+- Functionality tests:
+    1. Test invalid username: (URL: http://localhost:8000)
+        - username input: "aa!"                           (INVALID: should only contain letters a-z and A-Z)
+        - email input: "a@a.com"                          (VALID)
+        - expected output: "Error: invalid username"
+    2. Test invalid email: (URL: http://localhost:8000)
+        - username input: "aa"                            (VALID)
+        - email input: "a@.com"                           (INVALID: must contain domain after @ symbol)
+        - expected output: "Error: Invalid Email"
+    3. Test valid register: (URL: http://localhost:8000)
+        - username input: "aa"                            (VALID)
+        - email input: "a@a.com"                          (VALID)
+        - expected output: switch to regextest screen
+          "id_regexString" should be present
+    4. Test matching regex and input string:(URL: http://localhost:8000/regextest)
+        - regexString input: "abc"                        (VALID)
+        - inputString input: "abcdd"                      (VALID)
+        - expected output: "Result: String
+          found in regex"
+    5. Test non-matching regex and input string (URL: http://localhost:8000/regextest)
+        - regexString input: "abce"                       (VALID)
+        - inputString input: "abcdd"                      (VALID)
+        - expected output: "Result: no result"
+    6. Test invalid regex input (URL: http://localhost:8000/regextest)
+        - regexString input: "("                          (INVALID: should be an a regular expression)
+        - inputString input: "abcdd"                      (VALID)
+        - expected output: "Error: invalid regex"
+    7. Test string that needs trimming (URL: http://localhost:8000/inputTrim)
+        - spacetestInput input: "   abc a  "              (VALID)
+        - expected output: "Trimmed String: abc a"
+    8. Test string that doesn't need trimming (URL: http://localhost:8000/inputTrim)
+        - spacetestInput input: "abc a"                   (VALID)
+        - expected output: "Result: Nothing
+          needed trimming"
+    9. Test going to regex and space trimmer page via buttons (URL: http://localhost:8000/inputTrim)
+        - input: press the goToRegex button               (VALID)
+        - expected output: switches to the regex page
+          hence id_regexString should be present
+
+redos_email_test.py: (URL: http://localhost:8000/)
+- tests whether redos occurs on register page when dangerous input is enter into email field and submitted
+- NOTE: DUE TO A LARGE NUMBER OF @ SYMBOLS MAY TAKE A COUPLE OF MINUTES TO BUFFER
+- Steps:
+    - username input: "tester"
+    - email input: "@" * 200000
+    - register button pressed
+    - expected result MASTER: proceeds to load for over 10 seconds and a timeout occurs, test file outputs
+      "ReDos was caused" to terminal.
+    - expected result patchBranch: "Invalid Email" output to website. Test file outputs "No ReDos occurred to terminal"
+
+redos_regextest_test.py: (URL: http://localhost:8000/)
+- tests whether redos occurs on the regex test screen when an evil regex is entered as the regex and and input is
+  entered that will cause catastrophic backtracking when trying to match
+- Steps:
+    - username input: "ReDosTester"
+    - email input: "a@a.com"
+    - register button pressed (GOES TO REGEX INPUT SCREEN)
+    - regexString input: "^((a+)+)$" (EVIL REGEX)
+    - inputString input: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!" (INVALID STRING)
+    - expected result MASTER: proceeds to load for over 10 seconds and a timeout occurs, test file outputs
+      "ReDos was caused" to terminal.
+    - expected result patchBranch: "No result" output to website. Test file outputs "ReDos was not caused"
+
+redos_spactrimmer_test.py:
+- tests whether redos occurs on the space trimmer screen when a dangerous input is entered into the space trimmmer input
+  field and the submit button is selected.
+- NOTE IT MAY TAKE A FEW SECONDS TO LOAD DUE TO THE LARGE AMOUNT OF SPACES
+- Steps:
+    - username input: "ReDosTester"
+    - email input: "a.a@a.com"
+    - register button pressed (GOES TO REGEX INPUT SCREEN)
+    - goToSpaceBtn pressed  (GOES TO SPACE TRIMMER SCREEN)
+    - spaceInput: "asd" + " "*100000 + "asd"
+    - expected result MASTER: proceeds to load for over 10 seconds and a timeout occurs, test file outputs
+      "ReDos was caused" to terminal.
+    - expected result patchBranch: "asd" as trimmed output to website as it should not be able to input all the spaces
+      due to limited input size. Test file outputs "ReDos was not caused"
+
+redos_username_test.py:
+- tests whether redos occurs on the registration screen when a dangerous username is entered into the username field and
+  then submitted.
+- Steps:
+    - username input: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!"
+    - email input: "a@a.com"
+    - register button pressed (GOES TO REGEX INPUT SCREEN)
+    - expected result MASTER: proceeds to load for over 10 seconds and a timeout occurs, test file outputs
+      "ReDos was caused" to terminal.
+    - expected result patchBranch: "invalid username" output to website and test file outputs "No ReDos occurred to
+      terminal"
