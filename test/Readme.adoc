@@ -1,6 +1,7 @@
 Contributors: Alex McLeod, Sho Kogota
 
 = ISEC3004 assignment TEST FOLDER README
+
 Contains:
 test case python scripts:
 - functionality_test (Tests the basics functionality of all the different use cases)
@@ -39,7 +40,8 @@ Other files:
 
 == Tests
 
-functionality_test.py:
+== functionality_test.py:
+
 - Test the basic functionality of the website
 - Functionality tests:
     1. Test invalid username: (URL: http://localhost:8000)
@@ -80,7 +82,8 @@ functionality_test.py:
         - expected output: switches to the regex page
           hence id_regexString should be present
 
-redos_email_test.py: (URL: http://localhost:8000/)
+== redos_email_test.py: (URL: http://localhost:8000/)
+
 - tests whether redos occurs on register page when dangerous input is enter into email field and submitted
 - NOTE: DUE TO A LARGE NUMBER OF @ SYMBOLS MAY TAKE A COUPLE OF MINUTES TO BUFFER
 - Steps:
@@ -91,7 +94,8 @@ redos_email_test.py: (URL: http://localhost:8000/)
       "ReDos was caused" to terminal.
     - expected result patchBranch: "Invalid Email" output to website. Test file outputs "No ReDos occurred to terminal"
 
-redos_regextest_test.py: (URL: http://localhost:8000/)
+== redos_regextest_test.py: (URL: http://localhost:8000/)
+
 - tests whether redos occurs on the regex test screen when an evil regex is entered as the regex and and input is
   entered that will cause catastrophic backtracking when trying to match
 - Steps:
@@ -104,7 +108,8 @@ redos_regextest_test.py: (URL: http://localhost:8000/)
       "ReDos was caused" to terminal.
     - expected result patchBranch: "No result" output to website. Test file outputs "ReDos was not caused"
 
-redos_spactrimmer_test.py:
+== redos_spactrimmer_test.py: (URL: http://localhost:8000/)
+
 - tests whether redos occurs on the space trimmer screen when a dangerous input is entered into the space trimmmer input
   field and the submit button is selected.
 - NOTE IT MAY TAKE A FEW SECONDS TO LOAD DUE TO THE LARGE AMOUNT OF SPACES
@@ -119,7 +124,8 @@ redos_spactrimmer_test.py:
     - expected result patchBranch: "asd" as trimmed output to website as it should not be able to input all the spaces
       due to limited input size. Test file outputs "ReDos was not caused"
 
-redos_username_test.py:
+== redos_username_test.py: (URL: http://localhost:8000/)
+
 - tests whether redos occurs on the registration screen when a dangerous username is entered into the username field and
   then submitted.
 - Steps:
