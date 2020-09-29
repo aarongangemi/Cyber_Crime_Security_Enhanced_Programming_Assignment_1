@@ -1,3 +1,5 @@
+Contributors: Alex McLeod, Sho Kogota
+
 = ISEC3004 assignment
 
 == KAAS - REDOS EXAMPLE README

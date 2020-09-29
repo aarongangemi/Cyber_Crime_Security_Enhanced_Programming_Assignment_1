@@ -1,6 +1,9 @@
-## Purpose: Classes used to set attributes for each form
-## Patch: Added max_length in order to limit the input string size
-## Contributors: Aaron Gangemi, Kay Men Yap, Sho Kogota, Alex McLeod
+'''
+Purpose: Classes used to set attributes for each form
+Patch: Added max_length in order to limit the input string size
+Contributors from Master: Aaron Gangemi, Kay Men Yap,
+patchBranch Contributors: Sho Kogota, Alex McLeod
+'''
 from django import forms
 class RegisterForm(forms.Form):
     username = forms.CharField(max_length=100, label="Enter Username")
