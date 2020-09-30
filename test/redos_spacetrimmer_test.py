@@ -34,23 +34,20 @@ except TimeoutException:
 # Testing matching regex and input string
 spaceInput = selenium.find_element_by_id('id_spaceInput')
 trimBtn = selenium.find_element_by_id('trimBtn')
-spaceInput.send_keys("asd")
-spaceInput.send_keys(" " * 100000)
-## take time to buffer
-spaceInput.send_keys("asd")
+selenium.execute_script('document.getElementById("id_spaceInput").value="asd"+" ".repeat(100000)+"asd"')
 trimBtn.send_keys(Keys.RETURN)
 
 try:
     timeout = 10
     ## check space result
-    text_present = EC.text_to_be_present_in_element((By.ID, 'spaceResult'), "asd")
+    text_present = EC.text_to_be_present_in_element((By.ID, 'spaceResult'), "Error: ")
     WebDriverWait(selenium, timeout).until(text_present)
 except TimeoutException:
     print("ReDoS occurred in space trimmer")
 
 try:
     spaceResult = selenium.find_element_by_id('spaceResult')
-    assert "asd" in spaceResult.text
+    assert "Error: " in spaceResult.text
     print("No ReDos Occurred")
 except AssertionError:
     print("ReDos was caused at space trimmer")

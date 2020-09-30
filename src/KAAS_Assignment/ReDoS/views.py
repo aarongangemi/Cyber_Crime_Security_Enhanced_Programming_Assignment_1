@@ -88,6 +88,9 @@ class Register(View):
                 # add exception if regex is invalid
                 else:
                     return redirect('regextest')
+            else:
+                return render(request, "register.html", {"form": RegisterForm(),
+                                                             "message": "form is invalid"})
 
 
 # Changes: length of input string is limited, rure engine used, exception handling added
@@ -151,7 +154,7 @@ class SpaceTrim(View):
                     trimData = form.data["spaceInput"]
                     # check input length
                     if len(trimData) > 300:
-                        raise trimLengthException("Error input data to trim must be less than 300 characters")
+                        raise trimLengthException("Error: input data to trim must be less than 300 characters")
                     inputTrim = rure.search("^[ \t]+|[ \t]+$", trimData)
                     if inputTrim:
                         return render(request, "spacetrimmer.html", {"form": form,

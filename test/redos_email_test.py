@@ -11,19 +11,18 @@ from selenium.webdriver.common.by import By
 selenium = webdriver.Firefox()
 selenium.get('http://localhost:8000/')
 username = selenium.find_element_by_id('id_username')
-email = selenium.find_element_by_id('id_email')
 submit = selenium.find_element_by_id('register')
 ## set email fields to HTML elements
 username.send_keys("tester")
 ## Send values
-email.send_keys("@" * 200000)
+selenium.execute_script('document.getElementById("id_email").value="@".repeat(200000)')
 submit.send_keys(Keys.RETURN)
 ## return data
 try:
     timeout = 10
     ## timeout value of 10 seconds
     text_present = EC.text_to_be_present_in_element((By.ID, 'message'),
-                                                    "Error: Invalid Email")
+                                                    "Error: ")
     WebDriverWait(selenium, timeout).until(text_present)
     ## start count in another thread. Error should be present if ReDos is not caused
 except TimeoutException:
@@ -32,8 +31,8 @@ except TimeoutException:
 try:
     ## ReDos not caused if URL does not change for error
     message = selenium.find_element_by_id("message")
-    assert "Invalid Email" in message.text
+    assert "Error: " in message.text
     print("No ReDoS occurred")
 except AssertionError:
     ## ReDos caused if assertion error reached
-    print("ReDos was caused at register and did not allow the webpage url to change")
+    print("ReDos was caused at register and did not allow the webpage display email error message")
