@@ -22,7 +22,7 @@ try:
     timeout = 10
     ## timeout value of 10 seconds
     text_present = EC.text_to_be_present_in_element((By.ID, 'message'),
-                                                    "Error: Invalid Email")
+                                                    "Error: ")
     WebDriverWait(selenium, timeout).until(text_present)
     ## start count in another thread. Error should be present if ReDos is not caused
 except TimeoutException:
@@ -31,7 +31,7 @@ except TimeoutException:
 try:
     ## ReDos not caused if URL does not change for error
     message = selenium.find_element_by_id("message")
-    assert "Invalid Email" in message.text
+    assert "Error: " in message.text
     print("No ReDoS occurred")
 except AssertionError:
     ## ReDos caused if assertion error reached
